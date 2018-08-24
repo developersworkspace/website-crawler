@@ -1,0 +1,30 @@
+{
+  "name": "website-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "prettier.config.js",
+  "scripts": {
+    "start": "tsc & node ./dist/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/developersworkspace/website-crawler.git"
+  },
+  "author": "Barend Erasmus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/developersworkspace/website-crawler/issues"
+  },
+  "homepage": "https://github.com/developersworkspace/website-crawler#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "normalize-url": "^3.2.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2",
+    "url-join": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.9",
+    "@types/request": "^2.47.1"
+  }
+}
