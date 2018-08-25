@@ -3,8 +3,8 @@ import * as request from 'request-promise';
 import * as urlJoin from 'url-join';
 import * as normalizeURL from 'normalize-url';
 
-export class Scraper {
-  public async scrape(
+export class Crawler {
+  public async crawl(
     url: string,
     state: any,
     fn: (url: string, source: string, state: any) => void,
@@ -38,16 +38,17 @@ export class Scraper {
     for (const link of links) {
       const linkURL: string = this.isAbsoluteURL(link) ? this.normalizeURL(link) : this.normalizeURL(this.joinURL(url, link));
 
-      if (ignoreURLs.includes(linkURL)) {
+      if (ignoreURLs.indexOf(linkURL) > -1) {
         continue;
       }
 
-      await this.scrape(linkURL, state, fn, depth + 1, maximumDepth, ignoreURLs);
+      await this.crawl(linkURL, state, fn, depth + 1, maximumDepth, ignoreURLs);
     }
   }
 
   protected async getSource(url: string): Promise<string> {
-    return request.get(url);
+    const source: string = await request.get(url);
+    return source;
   }
 
   protected isAbsoluteURL(url: string): boolean {
@@ -58,11 +59,11 @@ export class Scraper {
       if (part2.startsWith('/')) {
         const host: string = new RegExp(/^https?:\/\/[^\/]+/i).exec(part1)[0];
 
-        return this.joinURL(host, part2);
+        return urlJoin(host, part2);
       }
     
 
-    return this.joinURL(part1, part2);
+    return urlJoin(part1, part2);
   }
 
   protected normalizeURL(url: string): string {

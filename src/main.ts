@@ -1,15 +1,43 @@
-import { Scraper } from './scraper';
+import { Crawler } from './crawler';
+import * as fs from 'fs';
+import { remote } from 'electron';
 
-const scraper: Scraper = new Scraper();
+const txtListOfURLs = document.querySelector('textarea#listOfURLs') as HTMLTextAreaElement;
 
-const url: string = 'https://medium.com/@developersworkspace';
-const state: string[] = [];
-const ignoreURLs: string[] = [];
+const txtListOfPatterns = document.querySelector('textarea#listOfPatterns') as HTMLTextAreaElement;
 
-(async () => {
-    await scraper.scrape(url, state, (url: string, source: string, state: any) => {
-        console.log(url);
-    }, 0, 1, ignoreURLs);
-    
-    console.log(ignoreURLs);
-})();
+const txtDepth = document.querySelector('input#depth') as HTMLInputElement;
+
+const btnCrawl = document.querySelector('button#crawl');
+
+btnCrawl.addEventListener('click', async () => {
+  const urls: string[] = txtListOfURLs.value.split('\n');
+  const patterns: string[] = txtListOfPatterns.value.split('\n');
+
+  const crawler: Crawler = new Crawler();
+
+  const state: string[] = [];
+
+  const ignoredURLs: string[] = [];
+
+  for (const url of urls) {
+    await crawler.crawl(
+      url,
+      state,
+      (url: string, source: string, state: any) => {
+        for (const pattern of patterns) {
+          if (new RegExp(pattern, 'i').test(source)) {
+            state.push(`${pattern};${url}`);
+          }
+        }
+      },
+      0,
+      parseInt(txtDepth.value),
+      ignoredURLs,
+    );
+  }
+
+  const filePath: string = remote.dialog.showSaveDialog(undefined);
+
+  fs.writeFileSync(filePath, state.join('\n'));
+});

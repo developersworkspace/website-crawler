@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Website Crawler</title>
+
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md">
+        <div class="form-group">
+          <label for="listOfURLs">List of URL's</label>
+          <textarea class="form-control" id="listOfURLs" rows="6"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="form-group">
+          <label for="listOfPatterns">List of Patterns</label>
+          <textarea class="form-control" id="listOfPatterns" rows="6"></textarea>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="depth">Depth</label>
+          <input type="number" class="form-control" id="depth" value="1">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md">
+          <button type="button" class="btn btn-primary" id="crawl">Crawl</button>
+      </div>
+    </div>
+  </div>
+  <script>var exports = {};</script>
+  <script src="main.js"></script>
+</body>
+
+</html>
