@@ -2,10 +2,10 @@
   "name": "website-crawler",
   "version": "1.0.0",
   "description": "",
-  "main": "prettier.config.js",
+  "main": "window.js",
   "scripts": {
-    "start": "tsc & node ./dist/main.js",
-    "desktop": "gulp build & tsc & electron ./dist/window.js"
+    "start": "gulp build & tsc & electron ./dist/window.js",
+    "build": "electron-packager ./dist website-crawler --overwrite --asar=true --platform=win32 --arch=x64 --prune=true --out=release-builds --version-string.CompanyName=\"Developer's Workspace\" --version-string.FileDescription=CE --version-string.ProductName=\"Website Crawler\""
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "@types/cheerio": "^0.22.9",
     "@types/request": "^2.47.1",
     "electron": "^2.0.8",
+    "electron-packager": "^12.1.1",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
     "run-sequence": "^2.2.1"
