@@ -1,0 +1,17 @@
+electron-packager ./dist website-crawler
+--appCopyright=\"Copyright Developer's Workspace\"
+--appVersion=\"1.0.0\"
+--arch=x64
+--asar
+--executableName=\"WebsiteCrawler\"
+--name=\"website-crawler\"
+--out=release-builds 
+--overwrite
+--platform=win32 
+--prune=true 
+--win32metadata.CompanyName=\"Developer's Workspace\" 
+--win32metadata.FileDescription=CE 
+--win32metadata.ProductName=\"Website Crawler\"
+
+
+electron-packager ./dist website-crawler --appCopyright=\"Copyright Developer's Workspace\" --appVersion=\"1.0.0\" --arch=x64 --asar --executableName=\"WebsiteCrawler\" --name=\"website-crawler\" --out=release-builds --overwrite --platform=win32 --prune=true --win32metadata.CompanyName=\"Developer's Workspace\" --win32metadata.FileDescription=CE --win32metadata.ProductName=\"Website Crawler\"

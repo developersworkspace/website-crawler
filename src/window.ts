@@ -6,9 +6,6 @@ function createWindow() {
 
   window.setMenu(null);
 
-  // TODO: Remove
-  window.webContents.openDevTools();
-
   window.loadFile(`${path.join(__dirname, 'index.html')}`);
 
   window.on('closed', () => {
@@ -17,3 +14,7 @@ function createWindow() {
 }
 
 app.on('ready', createWindow);
+
+app.on('window-all-closed', () => {
+  app.quit();
+});

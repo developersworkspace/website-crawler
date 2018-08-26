@@ -7,6 +7,10 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
+gulp.task('copy-package.json', function () {
+    return gulp.src('./package.json').pipe(gulp.dest('./dist'));
+});
+
 gulp.task('copy-ui', function () {
     return gulp.src('./src/ui/**/*').pipe(gulp.dest('./dist'));
 });
@@ -14,6 +18,7 @@ gulp.task('copy-ui', function () {
 gulp.task('build', function () {
     runSequence(
         'clean',
+        'copy-package.json',
         'copy-ui',
     );
 });
