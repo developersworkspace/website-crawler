@@ -12,17 +12,32 @@ const txtDepth = document.querySelector('input#depth') as HTMLInputElement;
 
 const btnCrawl = document.querySelector('button#crawl');
 
+const lbMessage = document.querySelector('label#message');
+
 btnCrawl.addEventListener('click', async () => {
-  loader.style.display = 'block';
+  lbMessage.innerHTML = '';
+  
+  const urls: string[] = txtListOfURLs.value.split('\n').filter((url: string) => url);
 
-  const urls: string[] = txtListOfURLs.value.split('\n');
-  const patterns: string[] = txtListOfPatterns.value.split('\n');
+  if (!urls.length) {
+    lbMessage.innerHTML = 'Enter at least one URL';
+    return;
+  }
 
-  const crawler: Crawler = new Crawler();
+  const patterns: string[] = txtListOfPatterns.value.split('\n').filter((url: string) => url);
+
+  if (!patterns.length) {
+    lbMessage.innerHTML = 'Enter at least one pattern';
+    return;
+  }
 
   const state: string[] = [];
 
   const ignoredURLs: string[] = [];
+
+  loader.style.display = 'block';
+
+  const crawler: Crawler = new Crawler();
 
   for (const url of urls) {
     await crawler.crawl(
@@ -41,6 +56,8 @@ btnCrawl.addEventListener('click', async () => {
     );
   }
 
+  loader.style.display = 'none';
+
   const filePath: string = remote.dialog.showSaveDialog(undefined, {
     filters: [
       {
@@ -52,7 +69,5 @@ btnCrawl.addEventListener('click', async () => {
 
   if (filePath) {
     fs.writeFileSync(filePath, state.join('\n'));
-  }
-
-  loader.style.display = 'none';
+  }  
 });
